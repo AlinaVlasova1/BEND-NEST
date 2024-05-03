@@ -3,6 +3,7 @@ import {InjectModel} from "@nestjs/mongoose";
 import {Tour, TourDocument} from "../../shemas/tour";
 import {Model} from "mongoose";
 import {TourDto} from "../../dto/tour-dto";
+import {User} from "../../shemas/user";
 
 @Injectable()
 export class ToursService {
@@ -21,5 +22,13 @@ export class ToursService {
 
     async deleteTours(): Promise<any> {
         return this.tourModel.deleteMany({});
+    }
+
+    async getAllTours(): Promise<Tour[]> {
+        return this.tourModel.find();
+    }
+
+    async getTourById(id): Promise<User> {
+        return this.tourModel.findById(id);
     }
 }

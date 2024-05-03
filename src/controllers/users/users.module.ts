@@ -8,13 +8,13 @@ import {AuthService} from "../../services/authentication/auth/auth.service";
 import {JwtModule} from "@nestjs/jwt";
 import {jwtConstants} from "../../static/private/constants";
 import {JwtStrategy} from "../../services/authentication/jwt-strategy/jwt-strategy.service";
+import {LocalGuardService} from "../../services/local-guard/local-guard.service";
 
 @Module({
     imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     PassportModule,
     JwtModule.register({
-        secret: jwtConstants.secret,
-        signOptions: {expiresIn: '60s'}
+        secret: jwtConstants.secret
     })],
     controllers: [UsersController],
     providers: [UsersService, AuthService, JwtStrategy],

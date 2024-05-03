@@ -14,6 +14,7 @@ import {UsersService} from "../../services/users/users.service";
 import {User} from "../../shemas/user";
 import {UserDto} from "../../dto/user-dto";
 import {AuthGuard} from "@nestjs/passport";
+import {LocalGuardService} from "../../services/local-guard/local-guard.service";
 
 @Controller('users')
 export class UsersController {
@@ -48,7 +49,7 @@ export class UsersController {
         });
 
     }
-    @UseGuards(AuthGuard('local'))
+    @UseGuards(AuthGuard('local') )
     @Post(":login")
     authUser(@Body() data: UserDto, @Param('login') login): any {
         return this.userService.login(data);

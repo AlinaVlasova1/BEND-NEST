@@ -1,5 +1,7 @@
-import {Controller, Get, Param} from '@nestjs/common';
+import {Controller, Delete, Get, Param, Post} from '@nestjs/common';
 import {ToursService} from "../../services/tours/tours.service";
+import {User} from "../../shemas/user";
+import {Tour} from "../../shemas/tour";
 
 @Controller('tours')
 export class ToursController {
@@ -8,12 +10,27 @@ export class ToursController {
     }
 
     @Get()
+    getAllTours(): Promise<Tour[]> {
+        return this.tourService.getAllTours();
+    }
+
+    @Get(":id")
+    getUserById(@Param('id') id): Promise<User> {
+        return this.tourService.getTourById(id);
+    }
+
+    /*@Get()
     getAllTours(): void{
+        this.tourService.generateTours();
+    }*/
+
+    @Post()
+    initTours(): void {
         this.tourService.generateTours();
     }
 
-    @Get(":remove")
-    removeAllTours(@Param('remove') remove): void {
+    @Delete()
+    removeAllTours(): void {
         this.tourService.deleteTours();
     }
 }

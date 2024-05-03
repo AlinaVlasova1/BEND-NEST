@@ -22,7 +22,9 @@ export class UsersService {
     }
 
     async sendUser(data): Promise<User> {
-        const userData = new this.userModel(data);
+        console.log('data', data)
+        const userObj = new UserDto(data.password, data.login)
+        const userData = new this.userModel(userObj);
         return userData.save();
     }
 
