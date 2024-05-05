@@ -1,5 +1,5 @@
 export interface IUser {
-    psw: string,
+    password: string,
     cardNumber: string,
     login: string,
     email: string,

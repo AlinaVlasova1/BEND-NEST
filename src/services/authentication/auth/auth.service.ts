@@ -8,9 +8,9 @@ export class AuthService extends PassportStrategy(Strategy){
         super({usernameField: 'login', passwordField: 'password'});
     }
 
-    async validate(login: string, psw: string): Promise<any> {
-        console.log('login', login, 'psw', psw);
-        const user = await this.userService.checkAuthUser(login, psw);
+    async validate(login: string, password: string): Promise<any> {
+        console.log('login', login, 'password', password);
+        const user = await this.userService.checkAuthUser(login, password);
         console.log('user', user);
         if (!user) {
             throw new HttpException({

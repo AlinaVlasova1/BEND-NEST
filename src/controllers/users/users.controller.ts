@@ -14,7 +14,8 @@ import {UsersService} from "../../services/users/users.service";
 import {User} from "../../shemas/user";
 import {UserDto} from "../../dto/user-dto";
 import {AuthGuard} from "@nestjs/passport";
-import {LocalGuardService} from "../../services/local-guard/local-guard.service";
+import * as bcrypt from "bcrypt";
+
 
 @Controller('users')
 export class UsersController {
@@ -33,8 +34,8 @@ export class UsersController {
     }
 
     @Post()
-    sendUser(@Body() data: UserDto): Promise<User> {
-
+      async sendUser(@Body() data: UserDto): Promise<User> {
+        data.password = await this.userService.hashPassword(data.password);
         return this.userService.checkRegUser(data.login).then((queryRes) => {
             console.log('data reg', queryRes)
             if (queryRes.length === 0) {
