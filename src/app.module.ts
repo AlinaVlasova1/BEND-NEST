@@ -5,10 +5,11 @@ import {UsersModule} from "./controllers/users/users.module";
 import {MongooseModule} from "@nestjs/mongoose";
 import {ToursModule} from "./controllers/tours/tours.module";
 import {OrdersModule} from "./controllers/orders/orders.module";
+import {TourItemModule} from "./controllers/tour-item/tour-item.module";
 
 
 @Module({
-  imports: [UsersModule, ToursModule, OrdersModule , MongooseModule.forRoot('mongodb://localhost:27017/nest') ],
+  imports: [UsersModule, ToursModule, OrdersModule, TourItemModule , MongooseModule.forRoot('mongodb://localhost:27017/nest') ],
   controllers: [AppController],
   providers: [AppService],
 })

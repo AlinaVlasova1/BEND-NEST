@@ -4,6 +4,7 @@ import {Tour, TourDocument} from "../../shemas/tour";
 import {Model} from "mongoose";
 import {TourDto} from "../../dto/tour-dto";
 import {User} from "../../shemas/user";
+import {ITour, ITourClient} from "../../interfaces/tours";
 
 @Injectable()
 export class ToursService {
@@ -12,11 +13,11 @@ export class ToursService {
     constructor(@InjectModel(Tour.name) private tourModel: Model<TourDocument>) {
     }
 
-    generateTours(): void {
+    async generateTours(): Promise<any> {
         for (let i=0; i <= this.toursCount; i++) {
-            const tour = new TourDto('test'+1, 'test desc', 'test operator', '300'+i)
+            const tour = new TourDto('test'+1, 'test desc', 'test operator', '300'+i, "img")
             const tourData = new this.tourModel(tour);
-            tourData.save();
+            await tourData.save();
         }
     }
 
@@ -24,11 +25,22 @@ export class ToursService {
         return this.tourModel.deleteMany({});
     }
 
-    async getAllTours(): Promise<Tour[]> {
+    async getAllTours(): Promise<ITour[]> {
         return this.tourModel.find();
     }
 
-    async getTourById(id): Promise<User> {
+    async getTourById(id): Promise<ITour> {
         return this.tourModel.findById(id);
+    }
+
+    async uploadTour(body: ITourClient) {
+        const tour = new TourDto(body.name, body.description, body.tourOperator, body.price, body.img);
+        const tourData = new this.tourModel(tour);
+        await tourData.save();
+    }
+
+    async getToursByName(name): Promise<ITour[]> {
+        return this.tourModel.find({name: { "$regex": name, "$options": "i" }})
+
     }
 }

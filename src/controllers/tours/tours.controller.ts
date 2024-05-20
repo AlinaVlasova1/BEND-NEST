@@ -15,7 +15,7 @@ export class ToursController {
     }
 
     @Get(":id")
-    getUserById(@Param('id') id): Promise<User> {
+    getUserById(@Param('id') id): Promise<Tour> {
         return this.tourService.getTourById(id);
     }
 
@@ -25,8 +25,9 @@ export class ToursController {
     }*/
 
     @Post()
-    initTours(): void {
+    initTours(): Promise<any> {
         this.tourService.generateTours();
+        return this.tourService.getAllTours()
     }
 
     @Delete()

@@ -1,10 +1,16 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 import {OrderService} from "../../services/orders/order.service";
 import {OrderDto} from "../../dto/order-dto";
+import {Order} from "../../shemas/order";
 
 @Controller('orders')
 export class OrdersController {
     constructor(private orderSrvice: OrderService) {
+    }
+
+    @Get()
+    getAllOrders(): Promise<Order[]> {
+        return this.orderSrvice.getAllOrders();
     }
 
     @Post()
