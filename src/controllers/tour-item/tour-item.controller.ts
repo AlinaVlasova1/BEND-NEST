@@ -37,7 +37,7 @@ export class TourItemController {
     }
 
     @Get(":name")
-    getUserById(@Param('name') name): Promise<Tour[]> {
+    getTourById(@Param('name') name): Promise<Tour[]> {
         return this.toursService.getToursByName(name);
     }
 

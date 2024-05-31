@@ -15,7 +15,7 @@ export class ToursController {
     }
 
     @Get(":id")
-    getUserById(@Param('id') id): Promise<Tour> {
+    getTourById(@Param('id') id): Promise<Tour> {
         return this.tourService.getTourById(id);
     }
 

@@ -5,17 +5,17 @@ import {Order} from "../../shemas/order";
 
 @Controller('orders')
 export class OrdersController {
-    constructor(private orderSrvice: OrderService) {
+    constructor(private orderService: OrderService) {
     }
 
     @Get()
     getAllOrders(): Promise<Order[]> {
-        return this.orderSrvice.getAllOrders();
+        return this.orderService.getAllOrders();
     }
 
     @Post()
     initTours(@Body() data: OrderDto): void {
         const orderData = new OrderDto(data.age, data.birthDay, data.cardNumber, data.tourId, data.userId);
-        this.orderSrvice.sendOrder(orderData);
+        this.orderService.sendOrder(orderData);
     }
 }
